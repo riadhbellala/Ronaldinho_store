@@ -25,11 +25,7 @@ export default function Manifesto() {
       <div className="absolute inset-0 grain-overlay opacity-30 pointer-events-none" />
       <div className="absolute right-0 bottom-0 w-[50vw] h-[50vw] rounded-full ambient-glow-yellow opacity-10 pointer-events-none" />
 
-      {/* Chapter Typo Indicator */}
-      <div className="absolute top-12 left-12 font-mono text-[10px] text-brand-yellow tracking-[0.4em] uppercase z-10 flex items-center gap-3">
-        <span className="w-1.5 h-1.5 bg-brand-yellow rounded-full" />
-        CHAPTER 02 // THE IDENTITY
-      </div>
+
 
       <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
         

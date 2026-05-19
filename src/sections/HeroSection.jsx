@@ -38,7 +38,7 @@ const CAMPAIGNS = [
 ];
 
 const fmt = (n) =>
-  (n / 100).toLocaleString('fr-DZ', { style: 'currency', currency: 'DZD', maximumFractionDigits: 0 });
+  n.toLocaleString('fr-DZ', { style: 'currency', currency: 'DZD', maximumFractionDigits: 0 }).replace('DZD', 'DA');
 
 /* ─────────── cinematic carousel variants ─────────── */
 const SLIDE = {
@@ -84,9 +84,8 @@ export default function HeroSection() {
   const [dir, setDir]       = useState(1);
   const campaign            = CAMPAIGNS[idx];
 
-  /* ── transition flash + attribute slam ── */
+  /* ── transition flash ── */
   const [flash, setFlash]   = useState(false);
-  const [slam,  setSlam]    = useState(false);
   const timerRef            = useRef(null);
 
   /* ── spring-smoothed mouse tilt (no state batching lag) ── */
@@ -100,9 +99,7 @@ export default function HeroSection() {
   const navigate = useCallback((step) => {
     // Fire the glow flash burst at transition midpoint
     setFlash(true);
-    setSlam(true);
     setTimeout(() => setFlash(false), 280);
-    setTimeout(() => setSlam(false),  600);
 
     setDir(step);
     setIdx((p) => (p + step + CAMPAIGNS.length) % CAMPAIGNS.length);
@@ -137,7 +134,7 @@ export default function HeroSection() {
   return (
     <section
       id="hook"
-      className="relative w-full h-screen bg-matte-black overflow-hidden flex items-center justify-center"
+      className="relative w-full h-[100dvh] bg-matte-black overflow-hidden flex items-center justify-center"
     >
       {/* ── background video ── */}
       <video
@@ -171,30 +168,7 @@ export default function HeroSection() {
         )}
       </AnimatePresence>
 
-      {/* ── ATTRIBUTE SLAM: SPEED / CONTROL / STYLE punches in ── */}
-      <AnimatePresence>
-        {slam && (
-          <motion.div
-            key={campaign.id + '-slam'}
-            initial={{ opacity: 0, scale: 1.4, y: 20 }}
-            animate={{ opacity: 1, scale: 1,   y: 0  }}
-            exit={{    opacity: 0, scale: 0.85, y: -16 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-0 z-[8] flex items-center justify-center pointer-events-none select-none"
-          >
-            <span
-              className="font-display font-black uppercase tracking-tighter leading-none"
-              style={{
-                fontSize: 'clamp(4rem, 18vw, 16rem)',
-                color: `rgba(${campaign.glow}, 0.09)`,
-                WebkitTextStroke: `2px rgba(${campaign.glow}, 0.18)`,
-              }}
-            >
-              {campaign.attribute}
-            </span>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
 
       {/* ── BIG depth word behind shoe (above vignette, below shoe) ── */}
       <div className="absolute inset-0 z-[3] flex items-center justify-center pointer-events-none select-none overflow-hidden">
@@ -205,9 +179,9 @@ export default function HeroSection() {
             animate={{ opacity: 1,  scale: 1    }}
             exit={{    opacity: 0,  scale: 0.94 }}
             transition={{ duration: 0.55, ease: 'easeInOut' }}
-            className="font-display font-black uppercase tracking-[0.04em] leading-none select-none"
+            className="font-display font-black uppercase tracking-[0.04em] leading-none select-none whitespace-nowrap"
             style={{
-              fontSize: 'clamp(5rem, 13.5vw, 14rem)',
+              fontSize: 'clamp(3rem, 15vw, 14rem)',
               color: `rgba(${campaign.glow}, 0.07)`,
               textShadow: `0 0 120px rgba(${campaign.glow}, 0.08)`,
               WebkitTextStroke: `1px rgba(${campaign.glow}, 0.1)`,
@@ -261,8 +235,7 @@ export default function HeroSection() {
             <motion.div
               animate={{ y: [0, -16, 0], rotate: [-10, -8, -10] }}
               transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut' }}
-              className="relative"
-              style={{ width: 'clamp(280px, 40vw, 520px)' }}
+              className="relative w-[75vw] sm:w-[60vw] max-w-[520px]"
             >
               <img
                 src={campaign.image}
@@ -287,101 +260,105 @@ export default function HeroSection() {
         </AnimatePresence>
       </div>
 
-      {/* ════════ CIRCULAR NAV ARROWS ════════ */}
+      {/* ════════ HUGE CIRCULAR NAV ARROWS ════════ */}
       {[-1, 1].map((step) => (
         <button
           key={step}
           onClick={() => handleNav(step)}
           aria-label={step === 1 ? 'Next' : 'Previous'}
-          className="absolute top-1/2 -translate-y-1/2 z-[30] flex items-center justify-center
-                     rounded-full border border-neutral-800 text-neutral-500
-                     hover:border-brand-yellow hover:text-brand-yellow
-                     transition-all duration-300 group"
+          className="absolute top-1/2 -translate-y-1/2 z-[30] hidden md:flex items-center justify-center
+                     rounded-full border border-neutral-400/30 text-white
+                     hover:border-white hover:scale-105
+                     transition-all duration-300"
           style={{
-            [step === 1 ? 'right' : 'left']: 'clamp(1rem, 3vw, 3.5rem)',
-            width:  'clamp(48px, 5.5vw, 80px)',
-            height: 'clamp(48px, 5.5vw, 80px)',
+            [step === 1 ? 'right' : 'left']: 'clamp(1rem, 4vw, 4rem)',
+            width:  '160px',
+            height: '160px',
+            transform: `translateY(-50%) ${step === -1 ? 'translateX(-30%)' : 'translateX(30%)'}`,
           }}
         >
           {step === -1
-            ? <ArrowLeft  size={18} className="group-hover:-translate-x-0.5 transition-transform" />
-            : <ArrowRight size={18} className="group-hover:translate-x-0.5  transition-transform" />}
+            ? <ArrowLeft  size={32} strokeWidth={1} />
+            : <ArrowRight size={32} strokeWidth={1} />}
         </button>
       ))}
 
       {/* ════════ TOP-LEFT: brand stamp ════════ */}
-      <div className="absolute top-[5.5rem] left-[clamp(1.5rem,4vw,4rem)] z-[20] select-none pointer-events-none">
+      <div className="absolute top-[6.5rem] left-[clamp(1.5rem,4vw,4rem)] z-[20] select-none pointer-events-none">
         <p className="font-mono text-[10px] text-brand-yellow tracking-[0.3em] uppercase mb-1">
           Inspired by a Legend
         </p>
-        <h1 className="font-display font-black uppercase tracking-tighter leading-none text-white"
-            style={{ fontSize: 'clamp(1.6rem, 3.5vw, 3rem)' }}>
+        <h1 className="font-display font-black uppercase tracking-tighter leading-none text-white whitespace-nowrap text-3xl md:text-4xl lg:text-5xl">
           RO<span className="text-brand-yellow">10</span>{' '}
-          <span className="text-neutral-400 font-light">Streetwear</span>
+          <span className="text-neutral-400 font-light hidden sm:inline">Streetwear</span>
         </h1>
       </div>
 
-      {/* ════════ BOTTOM-LEFT: sneaker info ════════ */}
-      <div className="absolute bottom-10 left-[clamp(1.5rem,4vw,4rem)] z-[20] max-w-[340px]">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={campaign.id + '-info'}
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1,  y: 0  }}
-            exit={{    opacity: 0,  y: -8 }}
-            transition={{ duration: 0.28 }}
-          >
-            <span className="block font-mono text-[9px] text-brand-yellow uppercase tracking-[0.28em] mb-1">
-              {campaign.attribute} · High Qualité
-            </span>
-            <h2 className="font-display font-extrabold uppercase text-white tracking-tight leading-tight"
-                style={{ fontSize: 'clamp(1rem, 2vw, 1.4rem)' }}>
-              {campaign.name}
-            </h2>
-            <p className="font-sans text-[11px] text-neutral-400 font-light mt-1.5 leading-relaxed">
-              {campaign.description}
-            </p>
-          </motion.div>
-        </AnimatePresence>
-      </div>
+      {/* ════════ BOTTOM BAR (Info + CTA) ════════ */}
+      <div className="absolute bottom-16 md:bottom-20 w-full px-[clamp(1.5rem,4vw,4rem)] z-[20] flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-0 pointer-events-none">
+        
+        {/* Sneaker Info */}
+        <div className="pointer-events-auto">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={campaign.id + '-info'}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1,  y: 0  }}
+              exit={{    opacity: 0,  y: -8 }}
+              transition={{ duration: 0.28 }}
+            >
+              <span className="block font-mono text-[9px] text-brand-yellow uppercase tracking-[0.28em] mb-1">
+                {campaign.attribute} · High Qualité
+              </span>
+              <h2 className="font-display font-extrabold uppercase text-white tracking-tight leading-tight text-3xl md:text-3xl lg:text-4xl">
+                {campaign.name}
+              </h2>
+              <p className="font-sans text-[11px] text-neutral-400 font-light mt-1.5 leading-relaxed hidden sm:block max-w-[280px]">
+                {campaign.description}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
 
-      {/* ════════ BOTTOM-RIGHT: price + CTA ════════ */}
-      <div className="absolute bottom-10 right-[clamp(1.5rem,4vw,4rem)] z-[20] flex flex-col items-end gap-4">
-        <AnimatePresence mode="wait">
-          <motion.p
-            key={campaign.id + '-price'}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{    opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="font-mono font-black text-brand-yellow leading-none select-none"
-            style={{ fontSize: 'clamp(1.1rem, 2.2vw, 1.75rem)' }}
-          >
-            {fmt(campaign.price)}
-          </motion.p>
-        </AnimatePresence>
+        {/* Price + CTA */}
+        <div className="flex flex-row md:flex-col items-center md:items-end justify-between w-full md:w-auto gap-4 pointer-events-auto mt-4 md:mt-0">
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={campaign.id + '-price'}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{    opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="font-mono font-black text-brand-yellow leading-none select-none text-xl md:text-2xl"
+            >
+              {fmt(campaign.price)}
+            </motion.p>
+          </AnimatePresence>
 
-        <button
-          onClick={scrollDown}
-          className="glow-btn-yellow flex items-center gap-2 bg-brand-yellow text-black font-display font-black
-                     uppercase tracking-wider rounded-lg transition-all
-                     hover:bg-white hover:shadow-[0_0_24px_rgba(255,215,0,0.4)]"
-          style={{ fontSize: '11px', padding: '12px 28px' }}
-        >
-          Explore Collection <ArrowRight size={13} />
-        </button>
-
-        {/* slide progress dots */}
-        <div className="flex gap-2 mt-1">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={scrollDown}
+              className="glow-btn-yellow flex items-center gap-2 bg-brand-yellow text-black font-display font-black
+                         uppercase tracking-wider rounded-lg transition-all whitespace-nowrap
+                         hover:bg-white hover:shadow-[0_0_24px_rgba(255,215,0,0.4)]"
+              style={{ fontSize: '11px', padding: '12px 24px' }}
+            >
+              Explore <span className="hidden sm:inline">Collection</span> <ArrowRight size={13} />
+            </button>
+          </div>
+        </div>
+        
+        {/* mobile slide dots */}
+        <div className="flex md:hidden gap-3 w-full justify-center mt-2 pointer-events-auto">
           {CAMPAIGNS.map((c, i) => (
             <button
               key={c.id}
               onClick={() => { setDir(i > idx ? 1 : -1); setIdx(i); resetTimer(); }}
               className="rounded-full transition-all duration-300"
               style={{
-                width:  i === idx ? '22px' : '6px',
-                height: '6px',
-                background: i === idx ? '#FFD700' : 'rgba(255,255,255,0.2)',
+                width:  i === idx ? '8px' : '6px',
+                height: i === idx ? '8px' : '6px',
+                background: i === idx ? '#fff' : 'rgba(255,255,255,0.3)',
               }}
               aria-label={`Go to slide ${i + 1}`}
             />

@@ -2,6 +2,7 @@ import React from 'react';
 import { X, Plus, Minus, Trash2, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../context/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function CartDrawer() {
   const {
@@ -13,15 +14,11 @@ export default function CartDrawer() {
     totalPrice,
   } = useCart();
 
+  const navigate = useNavigate();
+
   const handleCheckoutClick = () => {
     setIsCartOpen(false);
-    // Smooth scroll to countdown checkout gate
-    const checkoutSec = document.getElementById('countdown');
-    if (checkoutSec) {
-      setTimeout(() => {
-        checkoutSec.scrollIntoView({ behavior: 'smooth' });
-      }, 300);
-    }
+    navigate('/checkout');
   };
 
   return (

@@ -45,6 +45,9 @@
 
 /* Custom Base Styles & Utilities */
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     background-color: var(--color-matte-black);
     color: #F5F5F5;
