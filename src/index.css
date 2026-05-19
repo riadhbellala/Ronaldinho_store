@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-yellow: #FFD700;
+  --color-brand-yellow-dark: #C6A300;
+  --color-brand-yellow-glow: rgba(255, 215, 0, 0.15);
+  --color-matte-black: #0A0A0A;
+  --color-charcoal: #121212;
+  --color-dark-gray: #1E1E1E;
+  
+  --font-display: "Outfit", sans-serif;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+  
+  --animate-glow: glow 8s ease-in-out infinite alternate;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-scanline: scanline 8s linear infinite;
+
+  @keyframes glow {
+    0% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.15;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1.2);
+      opacity: 0.25;
+    }
+  }
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-12px) rotate(1.5deg);
+    }
+  }
+  @keyframes scanline {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(100%);
+    }
+  }
+}
+
+/* Custom Base Styles & Utilities */
+@layer base {
+  body {
+    background-color: var(--color-matte-black);
+    color: #F5F5F5;
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+}
+
+/* Modern Minimalist Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FFD700;
+}
+
+/* Texture Overlay (Grainy Noise for Urban Street Vibe) */
+.grain-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* Text Stroke / Outline for athletic bold titles */
+.text-outline-yellow {
+  -webkit-text-stroke: 1.5px #FFD700;
+  color: transparent;
+}
+
+.text-outline-white {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.25);
+  color: transparent;
+}
+
+/* Custom Webkit Masking for Image Reveal Animations */
+.clip-path-reveal {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Ambient Glow Lights in Background */
+.ambient-glow-yellow {
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+}
+
+.ambient-glow-white {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0) 75%);
+}
+
+/* Premium Card Glassmorphism */
+.glass-panel {
+  background: rgba(18, 18, 18, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-panel-yellow {
+  background: rgba(18, 18, 18, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.glow-btn-yellow {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glow-btn-yellow::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+  transform: scale(0);
+  transition: transform 0.5s ease-out;
+  pointer-events: none;
+}
+
+.glow-btn-yellow:hover::after {
+  transform: scale(1);
+}
+
+/* Micro-interaction hover utility */
+.interactive-hover {
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity  0.2s ease;
+}
+.interactive-hover:hover  { transform: translateY(-1px); }
+.interactive-hover:active { transform: translateY(0px);  }
+
+/* Hide scrollbars for full-screen sliders */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
