@@ -73,14 +73,6 @@ export default function Navbar() {
 
           {/* Right: cart + mobile menu */}
           <div className="flex-1 flex items-center justify-end gap-6">
-            <div className="hidden lg:flex items-center gap-6">
-              <button className="text-[10px] font-sans font-bold uppercase tracking-widest text-neutral-300 hover:text-white transition-colors">
-                Login / Register
-              </button>
-              <button aria-label="Search" className="text-neutral-300 hover:text-white transition-colors">
-                <Search size={18} strokeWidth={2} />
-              </button>
-            </div>
 
             <button
               onClick={() => setIsCartOpen(true)}
