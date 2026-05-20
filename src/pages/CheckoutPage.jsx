@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
@@ -21,7 +21,7 @@ export default function CheckoutPage() {
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-neutral-900 border border-neutral-800 rounded-[2rem] p-10 max-w-md w-full text-center flex flex-col items-center"
+          className="bg-neutral-900 border border-neutral-800 rounded-4xl p-10 max-w-md w-full text-center flex flex-col items-center"
         >
           <CheckCircle size={64} className="text-brand-yellow mb-6" />
           <h1 className="font-display font-black text-3xl text-white uppercase tracking-tighter mb-4">

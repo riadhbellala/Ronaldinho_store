@@ -136,13 +136,18 @@ export default function HeroSection() {
       id="hook"
       className="relative w-full h-[100dvh] bg-matte-black overflow-hidden flex items-center justify-center"
     >
-      {/* ── background video ── */}
-      <video
-        className="absolute inset-0 w-full h-full object-cover grayscale opacity-[0.18] scale-[1.04] z-0"
-        autoPlay loop muted playsInline preload="auto"
-      >
-        <source src="/assets/ronadlinho.mp4" type="video/mp4" />
-      </video>
+      {/* ── background video via Vimeo ── */}
+      <div className="absolute top-1/2 left-1/2 w-[100vw] min-w-[177.77vh] -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-[0.25] grayscale z-0">
+        <div style={{ padding: '56.25% 0 0 0', position: 'relative' }}>
+          <iframe 
+            src="https://player.vimeo.com/video/1194129675?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0" 
+            frameBorder="0" 
+            allow="autoplay; fullscreen; picture-in-picture" 
+            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} 
+            title="ronaldinho"
+          ></iframe>
+        </div>
+      </div>
 
       {/* ── vignette layer ── */}
       <div className="absolute inset-0 z-[1] bg-gradient-to-b from-matte-black/80 via-transparent to-matte-black/90" />
@@ -170,25 +175,54 @@ export default function HeroSection() {
 
 
 
-      {/* ── BIG depth word behind shoe (above vignette, below shoe) ── */}
+      {/* ── DYNAMIC TYPOGRAPHY BACKGROUND ── */}
       <div className="absolute inset-0 z-[3] flex items-center justify-center pointer-events-none select-none overflow-hidden">
         <AnimatePresence mode="wait">
-          <motion.span
-            key={campaign.id + '-word'}
-            initial={{ opacity: 0, scale: 1.08 }}
-            animate={{ opacity: 1,  scale: 1    }}
-            exit={{    opacity: 0,  scale: 0.94 }}
-            transition={{ duration: 0.55, ease: 'easeInOut' }}
-            className="font-display font-black uppercase tracking-[0.04em] leading-none select-none whitespace-nowrap"
-            style={{
-              fontSize: 'clamp(3rem, 15vw, 14rem)',
-              color: `rgba(${campaign.glow}, 0.07)`,
-              textShadow: `0 0 120px rgba(${campaign.glow}, 0.08)`,
-              WebkitTextStroke: `1px rgba(${campaign.glow}, 0.1)`,
-            }}
+          <motion.div
+            key={campaign.id + '-word-group'}
+            initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, scale: 1.1, filter: 'blur(10px)' }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col items-center justify-center"
           >
-            RONALDINHO
-          </motion.span>
+            {/* Outline Top */}
+            <span
+              className="font-display font-black uppercase tracking-[0.1em] leading-[0.75] select-none whitespace-nowrap opacity-30 translate-y-[15%]"
+              style={{
+                fontSize: 'clamp(4rem, 18vw, 16rem)',
+                color: 'transparent',
+                WebkitTextStroke: `1px rgba(${campaign.glow}, 0.4)`,
+              }}
+            >
+              {campaign.attribute}
+            </span>
+            
+            {/* Solid Center */}
+            <span
+              className="font-display font-black uppercase tracking-[0.1em] leading-[0.75] select-none whitespace-nowrap relative z-10"
+              style={{
+                fontSize: 'clamp(4rem, 18vw, 16rem)',
+                color: `rgba(${campaign.glow}, 0.08)`,
+                textShadow: `0 0 140px rgba(${campaign.glow}, 0.3)`,
+                WebkitTextStroke: `2px rgba(${campaign.glow}, 0.3)`,
+              }}
+            >
+              {campaign.attribute}
+            </span>
+
+            {/* Outline Bottom */}
+            <span
+              className="font-display font-black uppercase tracking-[0.1em] leading-[0.75] select-none whitespace-nowrap opacity-30 -translate-y-[15%]"
+              style={{
+                fontSize: 'clamp(4rem, 18vw, 16rem)',
+                color: 'transparent',
+                WebkitTextStroke: `1px rgba(${campaign.glow}, 0.4)`,
+              }}
+            >
+              {campaign.attribute}
+            </span>
+          </motion.div>
         </AnimatePresence>
       </div>
 

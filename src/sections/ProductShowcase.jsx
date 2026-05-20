@@ -57,35 +57,35 @@ export default function ProductShowcase() {
           {[...PRODUCTS, ...PRODUCTS].map((product, idx) => (
             <div 
               key={`${product.id}-${idx}`}
-              className="relative shrink-0 w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[35vw] max-w-[500px] aspect-[4/5] bg-neutral-900/40 border border-neutral-800 rounded-3xl overflow-hidden group flex flex-col justify-between p-8"
+              className="relative shrink-0 w-[75vw] sm:w-[50vw] md:w-[40vw] lg:w-[30vw] max-w-[400px] max-h-[65vh] md:max-h-[75vh] aspect-[4/5] md:aspect-[3/4] bg-neutral-900/40 border border-neutral-800 rounded-3xl overflow-hidden group flex flex-col justify-between p-6 md:p-8"
             >
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80" />
               
-              <Link to={`/product/${product.id}`} className="absolute inset-0 flex items-center justify-center p-12 cursor-pointer z-10">
+              <Link to={`/product/${product.id}`} className="absolute inset-0 flex items-center justify-center p-8 md:p-12 cursor-pointer z-0">
                 <img 
                   src={product.image} 
                   alt={product.name}
-                  className="w-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.8)] group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-700 ease-out"
+                  className="w-full h-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.8)] group-hover:scale-105 group-hover:-rotate-3 transition-transform duration-700 ease-out mix-blend-lighten"
                 />
               </Link>
 
               {/* Top Info */}
-              <div className="relative z-10 flex justify-between items-start pointer-events-none">
+              <div className="relative z-20 flex justify-between items-start pointer-events-none drop-shadow-md">
                 <div>
                   <p className="font-sans text-[10px] text-brand-yellow uppercase tracking-widest mb-1">
                     {product.brand}
                   </p>
-                  <h3 className="font-display font-black uppercase text-2xl text-white tracking-tight leading-none">
+                  <h3 className="font-display font-black uppercase text-2xl text-white tracking-tight leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                     {product.name}
                   </h3>
                 </div>
-                <p className="font-display font-bold text-white text-xl">
+                <p className="font-display font-bold text-white text-xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                   {product.price.toLocaleString()} DA
                 </p>
               </div>
 
               {/* Bottom Quick Add (Hover Reveal) */}
-              <div className="relative z-10 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out flex flex-col gap-3 mt-auto pt-8">
+              <div className="relative z-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out flex flex-col gap-3 mt-auto pt-8">
                 <div className="flex flex-wrap gap-2">
                   {product.sizes.slice(0, 4).map(size => (
                     <button

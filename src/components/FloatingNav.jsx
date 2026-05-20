@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink, Link, useLocation } from 'react-router-dom';
-import { ShoppingBag, Menu, X, Search } from 'lucide-react';
+import  { useState, useEffect } from 'react';
+import {  Link, useLocation } from 'react-router-dom';
+import { ShoppingBag, Menu, X} from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import logo from '../assets/logo.svg';
 
 const LINKS = [
-  { label: 'Collection', href: '/shop' },
+  { label: 'Home',       href: '/'          },
+  { label: 'Collection', href: '/shop'      },
   { label: 'Latest',     href: '/#latest'   },
-  { label: 'About',      href: '/about'      },
+  { label: 'About',      href: '/about'     },
 ];
 
 export default function Navbar() {
@@ -27,6 +28,13 @@ export default function Navbar() {
   useEffect(() => { setMenuOpen(false); }, [location]);
 
   const handleAnchor = (e, href) => {
+    if (href === '/') {
+      if (location.pathname === '/') {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      return;
+    }
     if (!href.startsWith('/#')) return;
     e.preventDefault();
     const id = href.replace('/#', '');
@@ -39,7 +47,15 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="absolute top-0 inset-x-0 z-50 transition-all duration-300 bg-transparent">
+      <header 
+        className="fixed top-0 inset-x-0 z-50 transition-all duration-300"
+        style={{
+          background: scrolled ? 'rgba(10, 10, 10, 0.4)' : 'transparent',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          borderBottom: scrolled ? '1px solid rgba(255, 255, 255, 0.05)' : '1px solid transparent',
+        }}
+      >
         <div className="max-w-7xl mx-auto px-6 sm:px-10 h-[72px] flex items-center justify-between">
 
           {/* Logo */}

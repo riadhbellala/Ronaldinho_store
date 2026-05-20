@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import  { useRef } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
@@ -64,10 +64,11 @@ export default function LatestSection() {
         <motion.img
           src={frame1}
           alt="F50 Top Angle"
-          className="absolute w-[65%] sm:w-[45%] object-contain select-none z-10"
+          className="absolute w-[65%] sm:w-[45%] object-contain select-none z-10 md:drop-shadow-[0_20px_40px_rgba(0,0,0,0.8)]"
           style={{ 
             x: x1, y: y1, rotate: r1, opacity: op1, scale: s1,
-            filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.8))'
+            willChange: 'transform, opacity',
+            WebkitBackfaceVisibility: 'hidden'
           }}
         />
 
@@ -75,10 +76,11 @@ export default function LatestSection() {
         <motion.img
           src={frame3}
           alt="F50 Low Angle"
-          className="absolute w-[65%] sm:w-[45%] object-contain select-none z-10"
+          className="absolute w-[65%] sm:w-[45%] object-contain select-none z-10 md:drop-shadow-[0_20px_40px_rgba(0,0,0,0.8)]"
           style={{ 
             x: x3, y: y3, rotate: r3, opacity: op3, scale: s3,
-            filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.8))'
+            willChange: 'transform, opacity',
+            WebkitBackfaceVisibility: 'hidden'
           }}
         />
 
@@ -91,12 +93,13 @@ export default function LatestSection() {
           <motion.img
             src={frame2}
             alt="F50 Side Profile"
-            className="w-full object-contain select-none"
+            className="w-full object-contain select-none md:drop-shadow-[0_30px_50px_rgba(0,0,0,0.9)] md:drop-shadow-[0_0_30px_rgba(132,204,22,0.15)]"
             animate={{ y: [0, -15, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
             style={{ 
               rotate: -5,
-              filter: 'drop-shadow(0 30px 50px rgba(0,0,0,0.9)) drop-shadow(0 0 30px rgba(132,204,22,0.15))'
+              willChange: 'transform',
+              WebkitBackfaceVisibility: 'hidden'
             }}
           />
         </motion.div>
