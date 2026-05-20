@@ -4,6 +4,8 @@ import { CartProvider } from './context/CartContext';
 
 import Navbar         from './components/FloatingNav';
 import CartDrawer     from './components/CartDrawer';
+import SmoothScroll   from './components/SmoothScroll';
+import NoiseOverlay   from './components/NoiseOverlay';
 
 // Pages
 import HomePage  from './pages/HomePage';
@@ -14,17 +16,20 @@ import CheckoutPage from './pages/CheckoutPage';
 
 export default function App() {
   return (
-    <CartProvider>
-      <Navbar />
-      <CartDrawer />
+    <SmoothScroll>
+      <CartProvider>
+        <NoiseOverlay />
+        <Navbar />
+        <CartDrawer />
 
-      <Routes>
-        <Route path="/"      element={<HomePage  />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/shop"  element={<ShopPage  />} />
-        <Route path="/product/:id" element={<ProductPage />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-      </Routes>
-    </CartProvider>
+        <Routes>
+          <Route path="/"      element={<HomePage  />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/shop"  element={<ShopPage  />} />
+          <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+        </Routes>
+      </CartProvider>
+    </SmoothScroll>
   );
 }

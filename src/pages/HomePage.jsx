@@ -13,6 +13,7 @@ const InstaIcon = () => (
 
 import HeroSection      from '../sections/HeroSection';
 import LatestSection    from '../sections/LatestSection';
+import F50Sequence      from '../sections/F50Sequence';
 import ProductShowcase  from '../sections/ProductShowcase';
 
 export default function HomePage() {
@@ -21,6 +22,7 @@ export default function HomePage() {
       <main className="w-full pt-[72px]">
         <HeroSection />
         <LatestSection />
+        <F50Sequence />
         <ProductShowcase />
       </main>
 

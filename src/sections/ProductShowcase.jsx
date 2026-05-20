@@ -23,7 +23,7 @@ export default function ProductShowcase() {
     <section 
       id="showcase" 
       ref={containerRef} 
-      className="relative bg-matte-black border-y border-neutral-900"
+      className="relative bg-matte-black"
       style={{ height: '300vh' }} // Make the section very tall to allow scrolling
     >
       <div className="sticky top-0 h-[100dvh] w-full overflow-hidden flex flex-col pt-24 md:pt-32 pb-12">

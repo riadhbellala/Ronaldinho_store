@@ -35,9 +35,6 @@ export default function LatestSection() {
   return (
     <section id="latest" ref={ref} className="w-full bg-matte-black py-32 overflow-hidden flex flex-col items-center">
       
-      {/* ── thin top rule ── */}
-      <div className="w-full h-px bg-neutral-900 absolute top-0" />
-
       {/* ════ EDITORIAL HEADER ════ */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
