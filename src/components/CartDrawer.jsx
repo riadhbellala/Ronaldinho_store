@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { X, Plus, Minus, Trash2, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../context/CartContext';

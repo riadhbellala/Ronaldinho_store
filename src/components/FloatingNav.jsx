@@ -25,8 +25,7 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Close mobile menu on route change
-  useEffect(() => { setMenuOpen(false); }, [location]);
+
 
   const handleAnchor = (e, href) => {
     if (href === '/') {
@@ -40,7 +39,7 @@ export default function Navbar() {
     e.preventDefault();
     const id = href.replace('/#', '');
     if (location.pathname !== '/') {
-      window.location.href = href;
+      window.location.assign(href);
       return;
     }
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });

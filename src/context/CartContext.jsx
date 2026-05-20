@@ -1,19 +1,14 @@
-import  { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 const CartContext = createContext(undefined);
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [totalItems, setTotalItems] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
 
-  useEffect(() => {
-    const itemsCount = cart.reduce((acc, item) => acc + item.quantity, 0);
-    const priceSum = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    setTotalItems(itemsCount);
-    setTotalPrice(priceSum);
-  }, [cart]);
+  // Derived state calculated during render (better performance than useEffect)
+  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   const addToCart = (product, selectedSize) => {
     if (!selectedSize) {
@@ -81,6 +76,7 @@ export const CartProvider = ({ children }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {
