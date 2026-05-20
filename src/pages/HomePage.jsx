@@ -13,7 +13,6 @@ const InstaIcon = () => (
 
 import HeroSection      from '../sections/HeroSection';
 import LatestSection    from '../sections/LatestSection';
-import F50Sequence      from '../sections/F50Sequence';
 import ProductShowcase  from '../sections/ProductShowcase';
 
 export default function HomePage() {
@@ -22,12 +21,11 @@ export default function HomePage() {
       <main className="w-full pt-[72px]">
         <HeroSection />
         <LatestSection />
-        <F50Sequence />
         <ProductShowcase />
       </main>
 
       {/* ────────────────── FOOTER ────────────────── */}
-      <footer className="w-full bg-matte-black border-t border-neutral-900">
+      <footer className="relative z-10 w-full bg-matte-black border-t border-neutral-900">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 py-16">
           
           {/* Top row */}

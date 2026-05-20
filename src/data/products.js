@@ -3,7 +3,6 @@ import nikeShoe from '../assets/heropics/nike.webp';
 import pumaShoe from '../assets/heropics/puma.webp';
 import frame1 from '../assets/latest/frame1.webp';
 import frame2 from '../assets/latest/frame2.webp';
-import frame3 from '../assets/latest/frame3.webp';
 
 export const PRODUCTS = [
   {

@@ -33,7 +33,7 @@ export default function LatestSection() {
   const centerScale = useTransform(scrollYProgress, [0, 1], [0.85, 1.05]);
 
   return (
-    <section id="latest" ref={ref} className="w-full bg-matte-black py-32 overflow-hidden flex flex-col items-center">
+    <section id="latest" ref={ref} className="relative z-10 w-full bg-matte-black py-32 overflow-hidden flex flex-col items-center">
       
       {/* ════ EDITORIAL HEADER ════ */}
       <motion.div 
